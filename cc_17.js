@@ -57,15 +57,39 @@ class VIPCustomer extends Customer { //Creates VIP Class
       this.vipLevel = vipLevel; // Added properties: 'Gold' or 'Platinum'
     }
     
-    // Override getTotalSpent to add a 10% loyalty bonus
+    //Overrides getTotalSpent to add a 10% loyalty bonus
     getTotalSpent() {
       return super.getTotalSpent() * 1.10;
     }
   }
   
-  // Testing Task 3:
+  //Testing Task 3:
   const vipCustomer = new VIPCustomer("Charlie", "charlie@example.com", "Gold");
   vipCustomer.addPurchase(400);
   vipCustomer.addPurchase(150);
   console.log("VIP Customer Created:", vipCustomer);
   console.log("VIP Charlie Total Spent with Bonus: $", vipCustomer.getTotalSpent().toFixed(2));
+
+//Task 4 Client Report System
+  //Creates additional customers for reporting
+const customer2 = new Customer("Bob", "bob@example.com");
+customer2.addPurchase(300);
+customer2.addPurchase(250);
+
+//Creates an array with both regular and VIP customers
+const allCustomers = [customer1, customer2, vipCustomer];
+
+//Calculates total revenue 
+const totalRevenue = allCustomers.reduce((total, cust) => total + cust.getTotalSpent(), 0);
+console.log("Total Revenue from all customers: $", totalRevenue.toFixed(2));
+
+//Uses .filter() to find customers who spent over $500
+const highSpenders = allCustomers.filter(cust => cust.getTotalSpent() > 500);
+console.log("High-Spending Customers (>$500):", highSpenders.map(cust => cust.name));
+
+//Uses .map() to create an array of customer names and total spent
+const customerSummary = allCustomers.map(cust => ({
+  name: cust.name,
+  totalSpent: cust.getTotalSpent().toFixed(2)
+}));
+logMessage("Customer Summary: " + JSON.stringify(customerSummary, null, 2));
