@@ -49,3 +49,23 @@ class SalesRep { //Creates class
       return client ? client.getTotalSpent() : 0;
     }
   }
+
+//Task 3 VIP Customer
+class VIPCustomer extends Customer { //Creates VIP Class
+    constructor(name, email, vipLevel) {
+      super(name, email);
+      this.vipLevel = vipLevel; // Added properties: 'Gold' or 'Platinum'
+    }
+    
+    // Override getTotalSpent to add a 10% loyalty bonus
+    getTotalSpent() {
+      return super.getTotalSpent() * 1.10;
+    }
+  }
+  
+  // Testing Task 3:
+  const vipCustomer = new VIPCustomer("Charlie", "charlie@example.com", "Gold");
+  vipCustomer.addPurchase(400);
+  vipCustomer.addPurchase(150);
+  console.log("VIP Customer Created:", vipCustomer);
+  console.log("VIP Charlie Total Spent with Bonus: $", vipCustomer.getTotalSpent().toFixed(2));
